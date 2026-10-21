@@ -28,3 +28,4 @@ export * from "./recipientValidationReconciliation";
 export * from "./compensationPolicyDependencyMapping";
 export * from "./contractPauseGuard";
 export * from "./concurrentPayrollEditWarning";
+export * from "./employeeReinstatementPayrollReview";

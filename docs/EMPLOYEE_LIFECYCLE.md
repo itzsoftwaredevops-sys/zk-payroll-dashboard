@@ -198,3 +198,27 @@ During employee CSV imports and batch onboarding, external import references (e.
 - **Collision Prevention**: Surface actionable warnings when duplicate import references are detected to avoid creating redundant payroll entries.
 - **Privacy Guaranteed**: Only external reference strings are validated and displayed. Employee salary values and zero-knowledge commitment secrets are never exposed in validation notices.
 
+
+---
+
+## Employee Reinstatement Payroll Review (#722)
+
+When employees return from suspension, leave, or offboarding, restoring active payroll eligibility requires a structured **reinstatement payroll review** to protect payroll accuracy and operational compliance before payouts execute.
+
+The module `src/payroll/employeeReinstatementPayrollReview.ts` provides pure evaluation, lifecycle tracking, and batch readiness gates for employee reinstatement.
+
+### Review Verification Steps
+
+| Step | Identifier | Description |
+| --- | --- | --- |
+| 1 | `roster_eligibility_check` | Validates employee previous status and ensures record exists |
+| 2 | `onboarding_completion_verification` | Confirms all onboarding requirements remain complete |
+| 3 | `payout_destination_confirmation` | Verifies active, confirmed Stellar destination address |
+| 4 | `compensation_policy_verification` | Verifies current compensation policy / group assignment |
+| 5 | `operator_reinstatement_approval` | Final administrator sign-off and audit log entry |
+
+### Privacy Guarantees
+
+- **Address Masking**: Public keys are masked by default (e.g. `GDQP2...G4W37`).
+- **No Financial Leaks**: Zero-knowledge proof secrets, private keys, and salary figures are never included in review logs or error context.
+- **Actionable Status**: Batch reviews return structured blocker messages identifying pending verifications without exposing PII.
